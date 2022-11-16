@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/Screens/forgetPasswordScreen.dart';
+import 'package:untitled/Screens/homePageScreen.dart';
+import 'package:untitled/Screens/signupScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,57 +12,89 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Expanded(
-            flex: 1,
-            child: Center(child: null),
-          ),
           Expanded(
-            flex: 6,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "Bezubaan",
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 45),
+                  const SizedBox(height: 45),
                   //
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Username',
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   //
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Password',
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   //
                   ElevatedButton(
-                    onPressed: null,
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, HomePageScreen.name);
+                      print("Login Button");
+                    },
                     child: Text("Login"),
                   ),
-                  SizedBox(height: 10),
                   //
-                  Text("Forget your login details? Contact us"),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Forget your login details?"),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, ForgetPasswordScreen.name);
+                            print("Contact Us Page");
+                          },
+                          child: const Text("Contact us"),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          const Expanded(
-            flex: 1,
-            child: Center(
-              child: Text("Don't have an account? Sign up"),
+          Container(
+            height: 60,
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: Colors.black,
+                  width: 1.0,
+                ),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("Don't have an account?"),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, SignUpScreen.name);
+                    print("Sign Up Page");
+                  },
+                  child: const Text("Sign up"),
+                ),
+              ],
             ),
           ),
         ],

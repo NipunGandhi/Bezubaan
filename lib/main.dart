@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/Screens/forgetPasswordScreen.dart';
+import 'package:untitled/Screens/homePageScreen.dart';
+import 'package:untitled/Screens/signupScreen.dart';
 import 'package:untitled/Screens/welcomeScreen.dart';
 import 'Screens/loginScreen.dart';
 
@@ -16,7 +19,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomeScreen(),
-        '/loginScreen': (context) => const LoginScreen(),
+        LoginScreen.name: (context) => const LoginScreen(),
+        SignUpScreen.name: (context) => const SignUpScreen(),
+        ForgetPasswordScreen.name: (context) => const ForgetPasswordScreen(),
+        HomePageScreen.name: (context) => const HomePageScreen(),
       },
       title: 'Animal Sheltering App',
       theme: ThemeData(

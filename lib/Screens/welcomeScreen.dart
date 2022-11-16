@@ -78,13 +78,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                       buttonText: "Let's go",
                       onFinish: () async {
+                        setState(() {
+                          isFinished = false;
+                        });
                         await Navigator.pushReplacementNamed(
                           context,
                           LoginScreen.name,
                         );
-                        setState(() {
-                          isFinished = false;
-                        });
                       },
                     ),
                   ),
