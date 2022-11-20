@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/Screens/forgetPasswordScreen.dart';
 import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
+import '../Widgets/bottomBarWidget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -47,9 +48,8 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacementNamed(
                           context, HomePageScreen.name);
-                      print("Login Button");
                     },
-                    child: Text("Login"),
+                    child: const Text("Login"),
                   ),
                   //
                   Center(
@@ -61,7 +61,6 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, ForgetPasswordScreen.name);
-                            print("Contact Us Page");
                           },
                           child: const Text("Contact us"),
                         ),
@@ -72,30 +71,10 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            height: 60,
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Colors.black,
-                  width: 1.0,
-                ),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text("Don't have an account?"),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, SignUpScreen.name);
-                    print("Sign Up Page");
-                  },
-                  child: const Text("Sign up"),
-                ),
-              ],
-            ),
+          BottomBar(
+            buttonText: "Sign up",
+            text: "Don't have an account?",
+            page: SignUpScreen.name,
           ),
         ],
       ),

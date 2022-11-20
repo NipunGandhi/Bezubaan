@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Widgets/PostWidget.dart';
+import '../Widgets/postWidget.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);
