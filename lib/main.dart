@@ -4,6 +4,7 @@ import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
 import 'package:untitled/Screens/welcomeScreen.dart';
 import 'Screens/loginScreen.dart';
+import 'Screens/photoChooser.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         SignUpScreen.name: (context) => const SignUpScreen(),
         ForgetPasswordScreen.name: (context) => const ForgetPasswordScreen(),
         HomePageScreen.name: (context) => const HomePageScreen(),
+        PhotoChooser.name: (context) => const PhotoChooser(),
       },
       title: 'Animal Sheltering App',
       theme: ThemeData(

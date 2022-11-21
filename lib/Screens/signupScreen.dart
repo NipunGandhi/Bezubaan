@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/Screens/photoChooser.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -63,6 +64,10 @@ class SignUpScreen extends StatelessWidget {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
+                      );
+                      Future.delayed(
+                        const Duration(seconds: 1),
+                        () => Navigator.pushNamed(context, PhotoChooser.name),
                       );
                     },
                     child: const Text("Next"),
