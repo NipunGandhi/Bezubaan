@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/Screens/forgetPasswordScreen.dart';
 import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
-import 'package:untitled/Screens/welcomeScreen.dart';
+import 'package:untitled/Screens/splashScreen.dart';
 import 'Screens/loginScreen.dart';
 import 'Screens/photoChooser.dart';
 
