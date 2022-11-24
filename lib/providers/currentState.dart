@@ -100,4 +100,17 @@ class CurrentState extends ChangeNotifier {
     utils.disableScreen.value = change;
 
   }
+
+  // this is the function to sign out of the application
+  Future signOut() async {
+    try {
+      await _auth.signOut();
+      await userBox.delete("data");
+      currentUser = OurUser();
+      return;
+    } catch (error) {
+      print(error.toString());
+      return null;
+    }
+  }
 }
