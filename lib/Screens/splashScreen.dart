@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:untitled/Screens/loginScreen.dart';
 import 'package:untitled/providers/currentState.dart';
+import 'package:untitled/providers/screen_utils_controller.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -13,15 +14,16 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-
-
   final CurrentState _instance = Get.put(CurrentState());
+  final ScreenUtilsLoader loader = Get.put(ScreenUtilsLoader());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _instance.onStartup();
   }
+
   bool isFinished = false;
 
   @override

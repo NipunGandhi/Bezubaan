@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:provider/provider.dart';
 import 'package:untitled/Screens/forgetPasswordScreen.dart';
 import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
@@ -12,7 +11,8 @@ import 'Screens/loginScreen.dart';
 import 'Screens/photoChooser.dart';
 import 'models/ourUser.dart';
 
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Hive.initFlutter();
   Hive.registerAdapter(OurUserDetailOriginal());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomeScreen(),
-        LoginScreen.name: (context) =>  LoginScreen(),
+        LoginScreen.name: (context) => LoginScreen(),
         SignUpScreen.name: (context) => SignUpScreen(),
         ForgetPasswordScreen.name: (context) => const ForgetPasswordScreen(),
         HomePageScreen.name: (context) => const HomePageScreen(),

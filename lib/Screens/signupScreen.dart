@@ -10,13 +10,13 @@ class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
   static String name = '/signUpScreen';
 
-
   final CurrentState _instance = Get.find();
   var nameController = TextEditingController();
   var email = TextEditingController();
   var phone = TextEditingController();
   var userName = TextEditingController();
   var password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ScreenLoader(
@@ -80,9 +80,17 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     ElevatedButton(
                       onPressed: () {
-                        if(nameController.text.isNotEmpty && email.text.isNotEmpty && phone.text.isNotEmpty && userName.text.isNotEmpty && password.text.isNotEmpty) {
-
-                          OurUser mode = OurUser(userName: userName.text,phone: phone.text,description: "",name: nameController.text);
+                        if (nameController.text.isNotEmpty &&
+                            email.text.isNotEmpty &&
+                            phone.text.isNotEmpty &&
+                            userName.text.isNotEmpty &&
+                            password.text.isNotEmpty) {
+                          OurUser mode = OurUser(
+                              userName: userName.text,
+                              phone: phone.text,
+                              description: "",
+                              name: nameController.text,
+                              email: email.text);
 
                           _instance.password = password.text;
                           _instance.currentUser = mode;
@@ -90,7 +98,8 @@ class SignUpScreen extends StatelessWidget {
                           //_instance.createNewUser(model: mode, password: password.text);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please fill all details')),
+                            const SnackBar(
+                                content: Text('Please fill all details')),
                           );
                         }
                         // Future.delayed(
