@@ -6,7 +6,6 @@ import 'package:untitled/Screens/forgetPasswordScreen.dart';
 import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
 import 'package:untitled/Screens/splashScreen.dart';
-import 'package:untitled/providers/currentState.dart';
 import 'Screens/loginScreen.dart';
 import 'Screens/photoChooser.dart';
 import 'models/ourUser.dart';
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.name: (context) => LoginScreen(),
         SignUpScreen.name: (context) => SignUpScreen(),
         ForgetPasswordScreen.name: (context) => const ForgetPasswordScreen(),
-        HomePageScreen.name: (context) => const HomePageScreen(),
+        HomePageScreen.name: (context) => HomePageScreen(),
         PhotoChooser.name: (context) => const PhotoChooser(),
       },
       title: 'Animal Sheltering App',
