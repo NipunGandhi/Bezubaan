@@ -5,7 +5,7 @@ import 'package:untitled/Screens/signupScreen.dart';
 import '../Widgets/bottomBarWidget.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
   static String name = '/loginScreen';
 
   @override

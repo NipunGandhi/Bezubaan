@@ -1,8 +1,9 @@
 import 'dart:html';
 
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
-Future<Position> determinePosition() async {
+determinePosition() async {
   bool serviceEnabled;
 
   LocationPermission permission;
@@ -40,22 +41,11 @@ Future getLocation() async {
     final coordinates =
     Coordinates(position.latitude, position.longitude);
     var addresses =
-    await Geocoder.local.findAddressesFromCoordinates(coordinate
-        + s);
+    await Geocoder.local.findAddressesFromCoordinates(coordinates);
     // print(addresses);
     // currentAddress = addresses.toString();
     var newAddresses = addresses.first;
     // print(newAddresses.toString());
-
-    // print(currentAddress);
-
-    currentAddress = newAddresses.addressLine;
-    current_latitude = coordinates.latitude;
-    current_longitude = coordinates.longitude;
-
-    _prefs.setString("currentAddress", currentAddress);
-    _prefs.setDouble("current_latitude", current_latitude);
-    _prefs.setDouble("current_longitude", current_longitude);
   } catch (e) {
     print(e);
   }

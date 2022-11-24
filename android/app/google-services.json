@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "536090390429",
+    "project_id": "bezubaan-9b2cd",
+    "storage_bucket": "bezubaan-9b2cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536090390429:android:dc5a0f0d484508cd01c974",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536090390429-c76q0hdpc736fraboppki9gvhtf1k00c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCafX_hYlTJo2QDJvz5Jh1kFQvFZPZA49E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536090390429-c76q0hdpc736fraboppki9gvhtf1k00c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
