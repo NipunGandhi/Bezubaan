@@ -40,7 +40,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 30),
                     TextField(
                       controller: nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Full Name',
                       ),
@@ -48,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     TextField(
                       controller: userName,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Username',
                       ),
@@ -56,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     TextField(
                       controller: email,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Email ID',
                       ),
@@ -64,7 +64,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     TextField(
                       controller: password,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Password',
                       ),
@@ -72,7 +72,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     TextField(
                       controller: phone,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Phone Number',
                       ),
@@ -94,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
 
                           _instance.password = password.text;
                           _instance.currentUser = mode;
-                          Get.to(() => PhotoChooser());
+                          Get.to(() => const PhotoChooser());
                           //_instance.createNewUser(model: mode, password: password.text);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

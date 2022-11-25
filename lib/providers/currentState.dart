@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/providers/screen_utils_controller.dart';
-
 import '../Screens/loginScreen.dart';
-import '../Screens/signupScreen.dart';
 import '../models/ourUser.dart';
 import '../models/postModel.dart';
 import '../services/our_database.dart';
@@ -50,7 +48,7 @@ class CurrentState extends ChangeNotifier {
         if (currentUser.uid == "thisisthat") {}
 
         userBox.put("data", currentUser);
-        Get.offAll(const HomePageScreen());
+        Get.offAll(HomePageScreen());
         // currentUser.email = result.user?.email;
         // currentUser.uid = result.user?.displayName;
       }
@@ -62,6 +60,7 @@ class CurrentState extends ChangeNotifier {
   }
 
   late String password;
+
   Future<String> createNewUser({
     required OurUser model,
     required File image,
@@ -77,7 +76,7 @@ class CurrentState extends ChangeNotifier {
         currentUser = model;
 
         currentUser.uid = user?.uid;
-        retVal = await OurDatabase().createUser(currentUser,image);
+        retVal = await OurDatabase().createUser(currentUser, image);
 
         if (retVal == "success") {
           //userBox.put("data", currentUser);
@@ -96,10 +95,9 @@ class CurrentState extends ChangeNotifier {
     return retVal;
   }
 
-  screenLoader(bool change) async{
+  screenLoader(bool change) async {
     ScreenUtilsLoader utils = Get.find();
     utils.disableScreen.value = change;
-
   }
 
 
