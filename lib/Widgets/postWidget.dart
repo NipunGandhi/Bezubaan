@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/Widgets/new_post_model.dart';
+import 'package:untitled/Screens/profileScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:get/get.dart';
 
 //Post widget template that will contain post
 class PostWidget extends StatelessWidget {
@@ -33,7 +32,7 @@ class PostWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, NewPostWidget.name);
+                        Navigator.pushNamed(context, ProfileScreen.name);
                       },
                       child: const Text(
                         "Username",
