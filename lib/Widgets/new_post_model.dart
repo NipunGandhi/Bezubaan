@@ -1,4 +1,3 @@
-
 import 'package:neopop/widgets/buttons/neopop_tilted_button/neopop_tilted_button.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +53,11 @@ class _NewPostWidgetState extends State<NewPostWidget> {
 
     return File(imagePath).copy(image.path);
   }
+
   final CurrentState _instance = Get.find();
 
   var descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,8 +76,9 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                   children: [
                     CustomAvatar(
                       isImageNull: _instance.currentUser.imageLink == null,
-                      firstAlphabet:
-                      _instance.currentUser.userName!.substring(0, 1).toUpperCase(),
+                      firstAlphabet: _instance.currentUser.userName!
+                          .substring(0, 1)
+                          .toUpperCase(),
                       imageUrl: _instance.currentUser.imageLink,
                       fontSize: 24,
                     ),
@@ -107,25 +109,27 @@ class _NewPostWidgetState extends State<NewPostWidget> {
               color: Colors.red,
               child: SizedBox(
                 width: 200,
-                child:_image==null? ElevatedButton(
-                  onPressed: () {
-                    getImage(ImageSource.gallery);
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.image_outlined),
-                      SizedBox(
-                        width: 20,
+                child: _image == null
+                    ? ElevatedButton(
+                        onPressed: () {
+                          getImage(ImageSource.gallery);
+                        },
+                        child: Row(
+                          children: const [
+                            Icon(Icons.image_outlined),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text("Pick from Gallery"),
+                          ],
+                        ),
+                      )
+                    : Image.file(
+                        _image!,
+                        width: 250,
+                        height: 250,
+                        fit: BoxFit.cover,
                       ),
-                      Text("Pick from Gallery"),
-                    ],
-                  ),
-                ) : Image.file(
-                  _image!,
-                  width: 250,
-                  height: 250,
-                  fit: BoxFit.cover,
-                ),
               ),
             ),
           ),
@@ -150,18 +154,22 @@ class _NewPostWidgetState extends State<NewPostWidget> {
             ),
           ),
 
-
           NeoPopTiltedButton(
             color: Colors.green,
-            onTapUp: () async{
-              if(descriptionController.text.isNotEmpty && _image!=null) {
-
-                PostModel post = PostModel(creatorImage: _instance.currentUser.imageLink,timeOfPost: DateTime.now(),creatorId: _instance.currentUser.uid);
+            onTapUp: () async {
+              if (descriptionController.text.isNotEmpty && _image != null) {
+                PostModel post = PostModel(
+                    creatorImage: _instance.currentUser.imageLink,
+                    timeOfPost: DateTime.now(),
+                    description: descriptionController.text,
+                    creatorName: _instance.currentUser.name,
+                    emailId: _instance.currentUser.email,
+                    imageFile:_image,
+                    creatorId: _instance.currentUser.uid);
                 _instance.createAPost(post);
-              }else {
+              } else {
                 return;
               }
-
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
