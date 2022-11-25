@@ -25,7 +25,9 @@ class OurUser {
   @HiveField(5)
   String ?userName;
 
+  @HiveField(6)
   String ?imageLink;
+
   String ?filePath;
   OurUser({
     this.description,

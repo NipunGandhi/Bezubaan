@@ -10,6 +10,7 @@ import 'package:untitled/providers/screen_utils_controller.dart';
 import '../Screens/loginScreen.dart';
 import '../Screens/signupScreen.dart';
 import '../models/ourUser.dart';
+import '../models/postModel.dart';
 import '../services/our_database.dart';
 
 class CurrentState extends ChangeNotifier {
@@ -79,7 +80,7 @@ class CurrentState extends ChangeNotifier {
         retVal = await OurDatabase().createUser(currentUser,image);
 
         if (retVal == "success") {
-          userBox.put("data", currentUser);
+          //userBox.put("data", currentUser);
           Get.offAll(() => LoginScreen());
         }
         screenLoader(false);
@@ -99,6 +100,21 @@ class CurrentState extends ChangeNotifier {
     ScreenUtilsLoader utils = Get.find();
     utils.disableScreen.value = change;
 
+  }
+
+
+
+  createAPost(PostModel postModel) async{
+    screenLoader(true);
+    String retVal = await OurDatabase().createAPost(postModel);
+    screenLoader(false);
+
+    showMessage("here is the message",retVal);
+
+  }
+
+  showMessage(String messageText,String title) {
+    Get.showSnackbar(GetSnackBar(messageText: Text(messageText),title: title,));
   }
 
   // this is the function to sign out of the application
