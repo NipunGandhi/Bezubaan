@@ -49,8 +49,6 @@ class CurrentState extends ChangeNotifier {
 
         userBox.put("data", currentUser);
         Get.offAll(HomePageScreen());
-        // currentUser.email = result.user?.email;
-        // currentUser.uid = result.user?.displayName;
       }
     } on FirebaseAuthException catch (e) {
       retVal = e.message ?? "something went wrong";
@@ -100,19 +98,23 @@ class CurrentState extends ChangeNotifier {
     utils.disableScreen.value = change;
   }
 
-
-
-  createAPost(PostModel postModel) async{
+  createAPost(PostModel postModel) async {
     screenLoader(true);
     String retVal = await OurDatabase().createAPost(postModel);
     screenLoader(false);
 
-    showMessage("here is the message",retVal);
-
+    await showMessage("here is the message", retVal);
   }
 
-  showMessage(String messageText,String title) {
-    Get.showSnackbar(GetSnackBar(messageText: Text(messageText),title: title,));
+  Future showMessage(String messageText, String title) {
+    Get.showSnackbar(GetSnackBar(
+      messageText: Text(messageText),
+      title: title,
+    ));
+
+    return Future.delayed(const Duration(seconds: 1), () {
+      Get.closeCurrentSnackbar();
+    });
   }
 
   // this is the function to sign out of the application

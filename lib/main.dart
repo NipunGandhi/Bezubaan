@@ -6,6 +6,7 @@ import 'package:untitled/Screens/forgetPasswordScreen.dart';
 import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
 import 'package:untitled/Screens/splashScreen.dart';
+import 'package:untitled/Widgets/new_post_model.dart';
 import 'Screens/loginScreen.dart';
 import 'Screens/photoChooser.dart';
 import 'models/ourUser.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.name: (context) => const ForgetPasswordScreen(),
         HomePageScreen.name: (context) => HomePageScreen(),
         PhotoChooser.name: (context) => const PhotoChooser(),
+        NewPostWidget.name: (context) => NewPostWidget(),
       },
       title: 'Animal Sheltering App',
       theme: ThemeData(

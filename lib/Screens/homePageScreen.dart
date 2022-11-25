@@ -17,15 +17,10 @@ class HomePageScreen extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               await instance.signOut();
-              Get.offAll(WelcomeScreen());
+              Get.offAll(const WelcomeScreen());
             },
-            child: Text("Logout"),
+            child: const Text("Logout"),
           ),
-          PostWidget(),
-          PostWidget(),
-          PostWidget(),
-          PostWidget(),
-          PostWidget(),
           PostWidget(),
           PostWidget(),
           PostWidget(),
