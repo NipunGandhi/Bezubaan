@@ -58,10 +58,7 @@ class ProfileScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(0),
               children: const [
-                PostWidget(),
-                PostWidget(),
-                PostWidget(),
-                PostWidget(),
+                Text("Text"),
               ],
             ),
           ),

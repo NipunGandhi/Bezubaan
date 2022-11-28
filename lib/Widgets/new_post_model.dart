@@ -54,6 +54,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
   Widget build(BuildContext context) {
     var number = _instance.currentUser.phone;
     var mail = _instance.currentUser.email;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -167,13 +168,15 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                 onTapUp: () async {
                   if (descriptionController.text.isNotEmpty && _image != null) {
                     PostModel post = PostModel(
-                        creatorImage: _instance.currentUser.imageLink,
-                        timeOfPost: DateTime.now(),
-                        description: descriptionController.text,
-                        creatorName: _instance.currentUser.name,
-                        emailId: _instance.currentUser.email,
-                        imageFile: _image,
-                        creatorId: _instance.currentUser.uid);
+                      creatorImage: _instance.currentUser.imageLink,
+                      timeOfPost: DateTime.now(),
+                      description: descriptionController.text,
+                      creatorName: _instance.currentUser.name,
+                      emailId: _instance.currentUser.email,
+                      imageFile: _image,
+                      creatorId: _instance.currentUser.uid,
+                      phoneNumber: _instance.currentUser.phone,
+                    );
                     await _instance.createAPost(post);
                     Navigator.pop(context);
                   } else {

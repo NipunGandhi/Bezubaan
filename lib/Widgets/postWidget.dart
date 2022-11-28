@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/Screens/profileScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:untitled/Widgets/custom_avator.dart';
 
 //Post widget template that will contain post
 class PostWidget extends StatelessWidget {
-  const PostWidget({super.key});
+  final String mail;
+  final String username;
+  final String creatorImage;
+  final String postImage;
+  final String phoneNumber;
+
+  const PostWidget({
+    super.key,
+    required this.mail,
+    required this.username,
+    required this.creatorImage,
+    required this.postImage,
+    required this.phoneNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
-    String mail = "ngandhi50_be21@thapar.edu";
-    String number = "+916280204417";
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      height: 380,
+      height: 500,
       child: Column(
         children: [
           //DP, Username and Distance
@@ -24,19 +36,22 @@ class PostWidget extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
-                      radius: 15,
+                    CustomAvatar(
+                      isImageNull: creatorImage == null,
+                      imageUrl: creatorImage,
+                      fontSize: 15,
+                      firstAlphabet: username.substring(0, 1).toUpperCase(),
                     ),
                     const SizedBox(
-                      width: 12,
+                      width: 10,
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, ProfileScreen.name);
                       },
-                      child: const Text(
-                        "Username",
-                        style: TextStyle(
+                      child: Text(
+                        username,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -55,8 +70,9 @@ class PostWidget extends StatelessWidget {
           ),
           //For photo
           Expanded(
-            child: Container(
-              color: Colors.red,
+            child: Image.network(
+              postImage,
+              width: double.maxFinite,
             ),
           ),
           //Interaction options (Personal chat, Location, Whatsapp)
@@ -69,7 +85,7 @@ class PostWidget extends StatelessWidget {
                 GestureDetector(
                   child: const Text("WhatsApp"),
                   onTap: () async => await launch(
-                      "https://wa.me/$number?text=I found your post on Bezubaan App and I want to help you"),
+                      "https://wa.me/+91$phoneNumber?text=I found your post on Bezubaan App and I want to help you"),
                 ),
                 GestureDetector(
                   child: const Text("Gmail"),
