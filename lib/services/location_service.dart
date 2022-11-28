@@ -1,4 +1,3 @@
-// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
 //
@@ -31,23 +30,3 @@ determinePosition() async {
   }
   return await Geolocator.getCurrentPosition();
 }
-// //
-// // Future getLocation() async {
-// //   try {
-// //     Position position = await Geolocator.getCurrentPosition(
-// //         desiredAccuracy: LocationAccuracy.high);
-// //     // debugPrint('location: ${position.latitude}');
-// //     final coordinates = Coordinates(position.latitude, position.longitude);
-// //     var addresses =
-// //         await Geocoder.local.findAddressesFromCoordinates(coordinates);
-// //
-// //     var newAddresses = addresses.first;
-// //     // return newAddresses;
-// //     // print(newAddresses.toString());
-// //   } catch (e) {
-// //     print(e);
-// //   }
-// //
-// //   // print("${first.featureName} : ${first.addressLine}");
-// //   // return currentAddress;current_latitude,current_longitude;
-// // }

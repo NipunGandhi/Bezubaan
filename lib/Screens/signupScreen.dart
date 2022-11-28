@@ -35,160 +35,156 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return ScreenLoader(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            height: MediaQuery.of(context).size.height + 300,
+            padding: const EdgeInsets.all(13.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Center(
+                  child: Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Full Name',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: userName,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Username',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: email,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Email ID',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  keyboardType: TextInputType.text,
+                  controller: description,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Description',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: phone,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Phone Number',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  obscureText: _passwordVisible,
+                  controller: password,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Password',
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
                   children: [
-                    const Center(
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    IconButton(
+                      icon: Icon(
+                        // Based on passwordVisible state choose the icon
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
                       ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                     ),
-                    const SizedBox(height: 30),
-                    TextField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Full Name',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: userName,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Username',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      controller: email,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email ID',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      controller: description,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Description',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: phone,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Phone Number',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      obscureText: _passwordVisible,
-                      controller: password,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Password',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            // Based on passwordVisible state choose the icon
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Theme.of(context).primaryColorDark,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
-                        const SizedBox(width: 15),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (phone.text.length != 10) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                  'Length should be 10 of phone number',
-                                )),
-                              );
-                            } else if (password.text.length <= 8) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                  'Password length should be more than or equal to 8',
-                                )),
-                              );
-                            } else if (!email.text.contains("@") ||
-                                !email.text.contains(".")) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                  'Email formatting is wrong',
-                                )),
-                              );
-                            } else if (phone.text.contains("-") ||
-                                phone.text.contains(".")) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                  'Phone number formatting is wrong',
-                                )),
-                              );
-                            } else if (nameController.text.isNotEmpty &&
-                                email.text.isNotEmpty &&
-                                phone.text.isNotEmpty &&
-                                userName.text.isNotEmpty &&
-                                password.text.isNotEmpty &&
-                                description.text.isNotEmpty) {
-                              OurUser mode = OurUser(
-                                userName: userName.text,
-                                phone: phone.text,
-                                description: description.text,
-                                name: nameController.text,
-                                email: email.text,
-                              );
-                              _instance.password = password.text;
-                              _instance.currentUser = mode;
-                              Get.to(() => const PhotoChooser());
-                              // _instance.createNewUser(model: mode, password: password.text);
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Please fill all details')),
-                              );
-                            }
-                          },
-                          child: const Text("Next"),
-                        ),
-                      ],
+                    const SizedBox(width: 15),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (phone.text.length != 10) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                              'Length should be 10 of phone number',
+                            )),
+                          );
+                        } else if (password.text.length <= 8) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                              'Password length should be more than or equal to 8',
+                            )),
+                          );
+                        } else if (!email.text.contains("@") ||
+                            !email.text.contains(".")) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                              'Email formatting is wrong',
+                            )),
+                          );
+                        } else if (phone.text.contains("-") ||
+                            phone.text.contains(".")) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                              'Phone number formatting is wrong',
+                            )),
+                          );
+                        } else if (nameController.text.isNotEmpty &&
+                            email.text.isNotEmpty &&
+                            phone.text.isNotEmpty &&
+                            userName.text.isNotEmpty &&
+                            password.text.isNotEmpty &&
+                            description.text.isNotEmpty) {
+                          OurUser mode = OurUser(
+                            userName: userName.text,
+                            phone: phone.text,
+                            description: description.text,
+                            name: nameController.text,
+                            email: email.text,
+                          );
+                          _instance.password = password.text;
+                          _instance.currentUser = mode;
+                          Get.to(() => const PhotoChooser());
+                          // _instance.createNewUser(model: mode, password: password.text);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Please fill all details')),
+                          );
+                        }
+                      },
+                      child: const Text("Next"),
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

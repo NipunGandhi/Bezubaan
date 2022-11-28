@@ -143,12 +143,9 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                       child: const Text("Location"),
                       onTap: () async {
                         data = await determinePosition();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                ' longitude - ${data.longitude} && latitude - ${data.latitude}'),
-                          ),
-                        );
+                        String mapUrl =
+                            "https://www.google.com/maps/search/?api=1&query=${data.latitude},${data.longitude}";
+                        await launch(mapUrl);
                       },
                     ),
                     GestureDetector(
