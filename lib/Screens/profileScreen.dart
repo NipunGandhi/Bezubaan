@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: 1,
               ),
             ),
-            padding: const EdgeInsets.only(top: 40, left: 20, bottom: 20),
+            padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
             child: Row(
               children: [
                 Column(
@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(width: 25),
+                const SizedBox(width: 35),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -78,15 +78,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 8),
                     Text("Mobile No: ${widget.phoneNumber}"),
                     const SizedBox(height: 8),
-                    const Text("Location: To be done"),
+                    const Text("Description: To be done"),
                     const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () async => await launch(
-                          "https://wa.me/+91${widget.phoneNumber}?text=Hello"),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      child: const Text("Whatsapp"),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: ElevatedButton(
+                            onPressed: () async => await launch(
+                                "https://wa.me/+91${widget.phoneNumber}?text=Hello"),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                            ),
+                            child: const Text("Whatsapp"),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: 100,
+                          child: ElevatedButton(
+                            onPressed: () async => await launch(
+                                "mailto:${widget.email}?subject=Want to help&body=I saw your profile on bezubaan app want to contact"),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.red[600],
+                            ),
+                            child: const Text("Email"),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -107,6 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     phoneNumber: post.phoneNumber.toString(),
                     latitude: post.latitude.toString(),
                     longitude: post.longitude.toString(),
+                    description: post.description.toString(),
                   );
                 }
                 return Container();

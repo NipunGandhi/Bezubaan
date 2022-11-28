@@ -96,6 +96,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             phoneNumber: post.phoneNumber.toString(),
             latitude: post.latitude.toString(),
             longitude: post.longitude.toString(),
+            description: post.description.toString(),
           );
         },
       ),

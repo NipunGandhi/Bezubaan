@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/Screens/forgetPasswordScreen.dart';
-import 'package:untitled/Screens/homePageScreen.dart';
 import 'package:untitled/Screens/signupScreen.dart';
 import 'package:untitled/utils/screen_loader.dart';
 import '../Widgets/bottomBarWidget.dart';
 import '../providers/currentState.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
   static String name = '/loginScreen';
-  final CurrentState instance = Get.find();
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final CurrentState instance = Get.find();
   var email = TextEditingController();
   var password = TextEditingController();
+  var _passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +42,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 45),
                     //
                     TextField(
+                      keyboardType: TextInputType.emailAddress,
                       controller: email,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -44,22 +50,33 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    //
                     TextField(
                       controller: password,
+                      obscureText: _passwordVisible,
+                      autocorrect: false,
+                      enableSuggestions: false,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Password',
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
                     //
                     ElevatedButton(
                       onPressed: () async {
                         await instance.loginUser(email.text, password.text);
-
-                        // Navigator.pushReplacementNamed(
-                        //     context, HomePageScreen.name);
                       },
                       child: const Text("Login"),
                     ),

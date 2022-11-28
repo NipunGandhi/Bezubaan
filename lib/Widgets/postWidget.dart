@@ -13,6 +13,7 @@ class PostWidget extends StatelessWidget {
   final String phoneNumber;
   final String latitude;
   final String longitude;
+  final String description;
 
   const PostWidget({
     super.key,
@@ -23,6 +24,7 @@ class PostWidget extends StatelessWidget {
     required this.phoneNumber,
     required this.latitude,
     required this.longitude,
+    required this.description,
   });
 
   @override
@@ -31,6 +33,7 @@ class PostWidget extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10),
       height: 500,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //DP, Username and Distance
           Container(
@@ -84,7 +87,8 @@ class PostWidget extends StatelessWidget {
           Expanded(
             child: Image.network(
               postImage,
-              width: double.maxFinite,
+              fit: BoxFit.cover,
+              width: double.infinity,
             ),
           ),
           //Interaction options (Personal chat, Location, Whatsapp)
@@ -115,6 +119,12 @@ class PostWidget extends StatelessWidget {
                       "mailto:$mail?subject=Want to help&body=I found your post on Bezubaan App and I want to help you"),
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 45.0),
+            child: Text(
+              "Description: $description",
             ),
           ),
         ],

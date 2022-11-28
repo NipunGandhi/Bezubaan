@@ -55,19 +55,28 @@ class _PhotoChooserState extends State<PhotoChooser> {
         body: Center(
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 25.0),
+                child: Text(
+                  "Welcome to the App, ${_instance.currentUser.name}\nPlease upload your profile picture",
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
               const SizedBox(height: 40),
               _image != null
-                  ? Image.file(
-                      _image!,
-                      width: 250,
-                      height: 250,
-                      fit: BoxFit.cover,
+                  ? CircleAvatar(
+                      radius: 100.0,
+                      backgroundImage: Image.file(
+                        _image!,
+                      ).image,
                     )
-                  : Image.network(
-                      "https://www.pngfind.com/pngs/m/110-1102775_download-empty-profile-hd-png-download.png",
-                      height: 250,
-                      width: 250,
-                      fit: BoxFit.cover,
+                  : const CircleAvatar(
+                      radius: 100.0,
+                      backgroundImage: NetworkImage(
+                          'https://www.pngfind.com/pngs/m/110-1102775_download-empty-profile-hd-png-download.png'),
+                      backgroundColor: Colors.transparent,
                     ),
               const SizedBox(height: 30),
               SizedBox(
