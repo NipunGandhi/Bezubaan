@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/Screens/profileScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:untitled/Widgets/custom_avator.dart';
+import 'package:get/get.dart';
 
 //Post widget template that will contain post
 class PostWidget extends StatelessWidget {
@@ -47,7 +48,14 @@ class PostWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, ProfileScreen.name);
+                        Get.to(
+                          ProfileScreen(
+                            email: mail,
+                            username: username,
+                            creatorImage: creatorImage,
+                            phoneNumber: phoneNumber,
+                          ),
+                        );
                       },
                       child: Text(
                         username,

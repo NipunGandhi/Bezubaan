@@ -91,21 +91,16 @@ class SignUpScreen extends StatelessWidget {
                               description: "",
                               name: nameController.text,
                               email: email.text);
-
                           _instance.password = password.text;
                           _instance.currentUser = mode;
                           Get.to(() => const PhotoChooser());
-                          //_instance.createNewUser(model: mode, password: password.text);
+                          // _instance.createNewUser(model: mode, password: password.text);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Please fill all details')),
                           );
                         }
-                        // Future.delayed(
-                        //   const Duration(seconds: 1),
-                        //   () => Navigator.pushNamed(context, PhotoChooser.name),
-                        // );
                       },
                       child: const Text("Next"),
                     ),

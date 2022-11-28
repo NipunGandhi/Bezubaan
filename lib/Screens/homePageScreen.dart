@@ -20,30 +20,12 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   final CurrentState instance = Get.find();
 
-  // final Stream<int> _bids = (() {
-  //   late final StreamController<int> controller;
-  //   controller = StreamController<int>(
-  //     onListen: () async {
-  //       await Future<void>.delayed(const Duration(seconds: 1));
-  //       controller.add(1);
-  //       await Future<void>.delayed(const Duration(seconds: 1));
-  //       await controller.close();
-  //     },
-  //   );
-  //   return controller.stream;
-  // })();
-
   var snaps;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    ///  gandhi bhaiya this is the code that is responsible for fetching
-    ///  the data from the firestore database and automatically returns the
-    ///  data in the postmodel instance which we can consume using the firestoreListview
-    ///  package
     snaps = FirebaseFirestore.instance
         .collection("posts")
         .orderBy('timeOfPost', descending: true)
@@ -57,57 +39,63 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Bezubaan"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.person),
-              tooltip: 'Profile Page',
-              onPressed: () async {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Profile Page')));
-                await Navigator.pushNamed(context, ProfileScreen.name);
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.add_a_photo),
-              tooltip: 'Add Photo',
-              onPressed: () async {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text('Add Photo')));
-                await Navigator.pushNamed(context, NewPostWidget.name);
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              tooltip: 'Logout',
-              onPressed: () async {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text('Logout')));
-                await instance.signOut();
-                Get.offAll(const WelcomeScreen());
-              },
-            ),
-          ],
-        ),
-        body: FirestoreListView<PostModel>(
-          query: snaps,
-          itemBuilder: (context, snapshot) {
-            // this post contain all the data of a single post fetched one at a time
-            // here you can add if conditions that if the uid of the post matches your local
-            // one then dont show that poist
-            final post = snapshot.data();
-            if (post.creatorId == instance.currentUser.uid) {
-              return Container();
-            }
-            return PostWidget(
-              mail: post.emailId.toString(),
-              username: post.creatorName.toString(),
-              creatorImage: post.creatorImage.toString(),
-              postImage: post.imageUrl.toString(),
-              phoneNumber: post.phoneNumber.toString(),
-            );
-          },
-        ));
+      appBar: AppBar(
+        title: const Text("Bezubaan"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profile Page',
+            onPressed: () async {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Profile Page')));
+              Get.to(
+                ProfileScreen(
+                  email: instance.currentUser.email.toString(),
+                  username: instance.currentUser.userName.toString(),
+                  creatorImage: instance.currentUser.imageLink.toString(),
+                  phoneNumber: instance.currentUser.phone.toString(),
+                  button: true,
+                ),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.add_a_photo),
+            tooltip: 'Add Photo',
+            onPressed: () async {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Add Photo')));
+              await Navigator.pushNamed(context, NewPostWidget.name);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+            onPressed: () async {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Logout')));
+              await instance.signOut();
+              Get.offAll(const WelcomeScreen());
+            },
+          ),
+        ],
+      ),
+      body: FirestoreListView<PostModel>(
+        query: snaps,
+        itemBuilder: (context, snapshot) {
+          final post = snapshot.data();
+          if (post.creatorId == instance.currentUser.uid) {
+            return Container();
+          }
+          return PostWidget(
+            mail: post.emailId.toString(),
+            username: post.creatorName.toString(),
+            creatorImage: post.creatorImage.toString(),
+            postImage: post.imageUrl.toString(),
+            phoneNumber: post.phoneNumber.toString(),
+          );
+        },
+      ),
+    );
   }
 }

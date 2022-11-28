@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
         HomePageScreen.name: (context) => HomePageScreen(),
         PhotoChooser.name: (context) => const PhotoChooser(),
         NewPostWidget.name: (context) => NewPostWidget(),
-        ProfileScreen.name: (context) => const ProfileScreen(),
       },
       title: 'Animal Sheltering App',
       theme: ThemeData(
