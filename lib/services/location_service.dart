@@ -1,11 +1,9 @@
-import 'dart:html';
-
-import 'package:geocoder/geocoder.dart';
+// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
+//
 determinePosition() async {
   bool serviceEnabled;
-
   LocationPermission permission;
 
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -31,25 +29,25 @@ determinePosition() async {
           'Location permissions are denied (actual value: $permission).');
     }
   }
+  return await Geolocator.getCurrentPosition();
 }
-
-Future getLocation() async {
-  try {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    // debugPrint('location: ${position.latitude}');
-    final coordinates =
-    Coordinates(position.latitude, position.longitude);
-    var addresses =
-    await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    // print(addresses);
-    // currentAddress = addresses.toString();
-    var newAddresses = addresses.first;
-    // print(newAddresses.toString());
-  } catch (e) {
-    print(e);
-  }
-
-  // print("${first.featureName} : ${first.addressLine}");
-  // return currentAddress;current_latitude,current_longitude;
-}
+// //
+// // Future getLocation() async {
+// //   try {
+// //     Position position = await Geolocator.getCurrentPosition(
+// //         desiredAccuracy: LocationAccuracy.high);
+// //     // debugPrint('location: ${position.latitude}');
+// //     final coordinates = Coordinates(position.latitude, position.longitude);
+// //     var addresses =
+// //         await Geocoder.local.findAddressesFromCoordinates(coordinates);
+// //
+// //     var newAddresses = addresses.first;
+// //     // return newAddresses;
+// //     // print(newAddresses.toString());
+// //   } catch (e) {
+// //     print(e);
+// //   }
+// //
+// //   // print("${first.featureName} : ${first.addressLine}");
+// //   // return currentAddress;current_latitude,current_longitude;
+// // }

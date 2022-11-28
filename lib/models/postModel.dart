@@ -17,6 +17,8 @@ class PostModel {
   String? phoneNumber;
 
   File? imageFile;
+  String? latitude;
+  String? longitude;
 
   PostModel({
     this.description,
@@ -29,6 +31,8 @@ class PostModel {
     this.creatorImage,
     this.imageFile,
     this.phoneNumber,
+    this.longitude,
+    this.latitude,
   });
 
   Map<String, dynamic> toJson() {
@@ -42,6 +46,8 @@ class PostModel {
       "imageUrl": imageUrl,
       "creatorImage": creatorImage,
       "phoneNumber": phoneNumber,
+      "longitude": longitude,
+      "latitude": latitude,
     };
   }
 
@@ -57,6 +63,8 @@ class PostModel {
       creatorImage: data["creatorImage"],
       imageUrl: data["imageUrl"],
       phoneNumber: data["phoneNumber"],
+      longitude: data["longitude"],
+      latitude: data["latitude"],
     );
   }
 

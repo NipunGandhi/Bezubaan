@@ -23,8 +23,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
   var snaps;
 
   @override
-  void initState() {
+  initState() {
     // TODO: implement initState
+
     super.initState();
     snaps = FirebaseFirestore.instance
         .collection("posts")
@@ -93,6 +94,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             creatorImage: post.creatorImage.toString(),
             postImage: post.imageUrl.toString(),
             phoneNumber: post.phoneNumber.toString(),
+            latitude: post.latitude.toString(),
+            longitude: post.longitude.toString(),
           );
         },
       ),

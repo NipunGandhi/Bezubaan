@@ -105,6 +105,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     creatorImage: post.creatorImage.toString(),
                     postImage: post.imageUrl.toString(),
                     phoneNumber: post.phoneNumber.toString(),
+                    latitude: post.latitude.toString(),
+                    longitude: post.longitude.toString(),
                   );
                 }
                 return Container();

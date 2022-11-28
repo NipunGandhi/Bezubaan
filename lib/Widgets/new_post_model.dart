@@ -10,6 +10,8 @@ import 'package:untitled/models/postModel.dart';
 import '../providers/currentState.dart';
 import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
+import '../services/location_service.dart';
 
 //Post widget template that will contain post
 class NewPostWidget extends StatefulWidget {
@@ -52,6 +54,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Position data;
     var number = _instance.currentUser.phone;
     var mail = _instance.currentUser.email;
 
@@ -136,7 +139,18 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("Location"),
+                    GestureDetector(
+                      child: const Text("Location"),
+                      onTap: () async {
+                        data = await determinePosition();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                ' longitude - ${data.longitude} && latitude - ${data.latitude}'),
+                          ),
+                        );
+                      },
+                    ),
                     GestureDetector(
                       child: const Text("WhatsApp"),
                       onTap: () async => await launch(
@@ -166,6 +180,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
               NeoPopTiltedButton(
                 color: Colors.green,
                 onTapUp: () async {
+                  data = await determinePosition();
                   if (descriptionController.text.isNotEmpty && _image != null) {
                     PostModel post = PostModel(
                       creatorImage: _instance.currentUser.imageLink,
@@ -176,6 +191,8 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                       imageFile: _image,
                       creatorId: _instance.currentUser.uid,
                       phoneNumber: _instance.currentUser.phone,
+                      latitude: data.latitude.toString(),
+                      longitude: data.longitude.toString(),
                     );
                     await _instance.createAPost(post);
                     Navigator.pop(context);

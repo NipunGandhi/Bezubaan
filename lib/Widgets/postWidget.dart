@@ -11,6 +11,8 @@ class PostWidget extends StatelessWidget {
   final String creatorImage;
   final String postImage;
   final String phoneNumber;
+  final String latitude;
+  final String longitude;
 
   const PostWidget({
     super.key,
@@ -19,6 +21,8 @@ class PostWidget extends StatelessWidget {
     required this.creatorImage,
     required this.postImage,
     required this.phoneNumber,
+    required this.latitude,
+    required this.longitude,
   });
 
   @override
@@ -89,7 +93,17 @@ class PostWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text("Location"),
+                GestureDetector(
+                  child: const Text("Location"),
+                  onTap: () async {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Longitude - $longitude && latitude - $latitude'),
+                      ),
+                    );
+                  },
+                ),
                 GestureDetector(
                   child: const Text("WhatsApp"),
                   onTap: () async => await launch(
