@@ -23,6 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var phone = TextEditingController();
   var userName = TextEditingController();
   var password = TextEditingController();
+  var description = TextEditingController();
 
   @override
   void initState() {
@@ -76,6 +77,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Email ID',
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      keyboardType: TextInputType.text,
+                      controller: description,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Description',
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -150,13 +160,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 email.text.isNotEmpty &&
                                 phone.text.isNotEmpty &&
                                 userName.text.isNotEmpty &&
-                                password.text.isNotEmpty) {
+                                password.text.isNotEmpty &&
+                                description.text.isNotEmpty) {
                               OurUser mode = OurUser(
-                                  userName: userName.text,
-                                  phone: phone.text,
-                                  description: "",
-                                  name: nameController.text,
-                                  email: email.text);
+                                userName: userName.text,
+                                phone: phone.text,
+                                description: description.text,
+                                name: nameController.text,
+                                email: email.text,
+                              );
                               _instance.password = password.text;
                               _instance.currentUser = mode;
                               Get.to(() => const PhotoChooser());

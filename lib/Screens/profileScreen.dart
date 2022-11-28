@@ -15,8 +15,10 @@ class ProfileScreen extends StatefulWidget {
     required this.creatorImage,
     required this.phoneNumber,
     this.button = false,
+    required this.userID,
   }) : super(key: key);
   final String email;
+  final String userID;
   final String username;
   final String creatorImage;
   final String phoneNumber;
@@ -28,10 +30,22 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   var snaps;
+  var name = "";
+  var bioDescription;
+
+  findDescription() async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    var a = await _firestore.collection('users').doc(widget.userID).get();
+    var b = a.data() as Map<String, dynamic>;
+    setState(() {
+      bioDescription = b["description"];
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    findDescription();
     snaps = FirebaseFirestore.instance
         .collection("posts")
         .orderBy('timeOfPost', descending: true)
@@ -78,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 8),
                     Text("Mobile No: ${widget.phoneNumber}"),
                     const SizedBox(height: 8),
-                    const Text("Description: To be done"),
+                    Text("Description: $bioDescription"),
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -129,6 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     latitude: post.latitude.toString(),
                     longitude: post.longitude.toString(),
                     description: post.description.toString(),
+                    uid: widget.userID,
                   );
                 }
                 return Container();

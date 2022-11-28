@@ -31,10 +31,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
         .collection("posts")
         .orderBy('timeOfPost', descending: true)
         .withConverter<PostModel>(
-            fromFirestore: (snapshot, _) => PostModel.fromJson(
-                  snapshot.data()!,
-                ),
-            toFirestore: (user, _) => user.toJson());
+        fromFirestore: (snapshot, _) =>
+            PostModel.fromJson(
+              snapshot.data()!,
+            ),
+        toFirestore: (user, _) => user.toJson());
   }
 
   @override
@@ -56,6 +57,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   creatorImage: instance.currentUser.imageLink.toString(),
                   phoneNumber: instance.currentUser.phone.toString(),
                   button: true,
+                  userID: instance.currentUser.uid.toString(),
+
                 ),
               );
             },
@@ -97,6 +100,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             latitude: post.latitude.toString(),
             longitude: post.longitude.toString(),
             description: post.description.toString(),
+            uid: post.creatorId.toString(),
           );
         },
       ),

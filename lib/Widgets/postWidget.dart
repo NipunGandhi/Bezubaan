@@ -14,6 +14,7 @@ class PostWidget extends StatelessWidget {
   final String latitude;
   final String longitude;
   final String description;
+  final String uid;
 
   const PostWidget({
     super.key,
@@ -25,6 +26,7 @@ class PostWidget extends StatelessWidget {
     required this.latitude,
     required this.longitude,
     required this.description,
+    required this.uid,
   });
 
   @override
@@ -61,6 +63,7 @@ class PostWidget extends StatelessWidget {
                             username: username,
                             creatorImage: creatorImage,
                             phoneNumber: phoneNumber,
+                            userID: uid,
                           ),
                         );
                       },
