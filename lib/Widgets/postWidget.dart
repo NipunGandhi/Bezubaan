@@ -3,9 +3,11 @@ import 'package:untitled/Screens/profileScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:untitled/Widgets/custom_avator.dart';
 import 'package:get/get.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 //Post widget template that will contain post
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   final String mail;
   final String username;
   final String creatorImage;
@@ -30,6 +32,29 @@ class PostWidget extends StatelessWidget {
   });
 
   @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  var a = "City Name";
+
+  findCity() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      double.parse(widget.latitude),
+      double.parse(widget.longitude),
+    );
+    setState(() {
+      a = "${placemarks[0].locality}, ${placemarks[0].administrativeArea}";
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    findCity();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
@@ -47,10 +72,11 @@ class PostWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CustomAvatar(
-                      isImageNull: creatorImage == null,
-                      imageUrl: creatorImage,
+                      isImageNull: widget.creatorImage == null,
+                      imageUrl: widget.creatorImage,
                       fontSize: 15,
-                      firstAlphabet: username.substring(0, 1).toUpperCase(),
+                      firstAlphabet:
+                          widget.username.substring(0, 1).toUpperCase(),
                     ),
                     const SizedBox(
                       width: 10,
@@ -59,16 +85,16 @@ class PostWidget extends StatelessWidget {
                       onTap: () {
                         Get.to(
                           ProfileScreen(
-                            email: mail,
-                            username: username,
-                            creatorImage: creatorImage,
-                            phoneNumber: phoneNumber,
-                            userID: uid,
+                            email: widget.mail,
+                            username: widget.username,
+                            creatorImage: widget.creatorImage,
+                            phoneNumber: widget.phoneNumber,
+                            userID: widget.uid,
                           ),
                         );
                       },
                       child: Text(
-                        username,
+                        widget.username,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -77,9 +103,9 @@ class PostWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Text(
-                  "City Name",
-                  style: TextStyle(
+                Text(
+                  a,
+                  style: const TextStyle(
                     fontSize: 15,
                   ),
                 ),
@@ -89,7 +115,7 @@ class PostWidget extends StatelessWidget {
           //For photo
           Expanded(
             child: Image.network(
-              postImage,
+              widget.postImage,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
@@ -102,24 +128,29 @@ class PostWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   child: const Text("Location"),
+                  // onTap: () async {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(
+                  //       content: Text(
+                  //           'Longitude - ${widget.longitude} && latitude - ${widget.latitude}'),
+                  //     ),
+                  //   );
+                  // },
                   onTap: () async {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'Longitude - $longitude && latitude - $latitude'),
-                      ),
-                    );
+                    String mapUrl =
+                        "https://www.google.com/maps/search/?api=1&query=${widget.latitude},${widget.longitude}";
+                    await launch(mapUrl);
                   },
                 ),
                 GestureDetector(
                   child: const Text("WhatsApp"),
                   onTap: () async => await launch(
-                      "https://wa.me/+91$phoneNumber?text=I found your post on Bezubaan App and I want to help you"),
+                      "https://wa.me/+91${widget.phoneNumber}?text=I found your post on Bezubaan App and I want to help you"),
                 ),
                 GestureDetector(
                   child: const Text("Gmail"),
                   onTap: () async => await launch(
-                      "mailto:$mail?subject=Want to help&body=I found your post on Bezubaan App and I want to help you"),
+                      "mailto:${widget.mail}?subject=Want to help&body=I found your post on Bezubaan App and I want to help you"),
                 ),
               ],
             ),
@@ -127,7 +158,7 @@ class PostWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 45.0),
             child: Text(
-              "Description: $description",
+              "Description: ${widget.description}",
             ),
           ),
         ],

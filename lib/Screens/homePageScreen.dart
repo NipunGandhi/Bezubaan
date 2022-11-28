@@ -31,78 +31,78 @@ class _HomePageScreenState extends State<HomePageScreen> {
         .collection("posts")
         .orderBy('timeOfPost', descending: true)
         .withConverter<PostModel>(
-        fromFirestore: (snapshot, _) =>
-            PostModel.fromJson(
-              snapshot.data()!,
-            ),
-        toFirestore: (user, _) => user.toJson());
+            fromFirestore: (snapshot, _) => PostModel.fromJson(
+                  snapshot.data()!,
+                ),
+            toFirestore: (user, _) => user.toJson());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Bezubaan"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            tooltip: 'Profile Page',
-            onPressed: () async {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Profile Page')));
-              Get.to(
-                ProfileScreen(
-                  email: instance.currentUser.email.toString(),
-                  username: instance.currentUser.userName.toString(),
-                  creatorImage: instance.currentUser.imageLink.toString(),
-                  phoneNumber: instance.currentUser.phone.toString(),
-                  button: true,
-                  userID: instance.currentUser.uid.toString(),
-
-                ),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.add_a_photo),
-            tooltip: 'Add Photo',
-            onPressed: () async {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Add Photo')));
-              await Navigator.pushNamed(context, NewPostWidget.name);
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
-            onPressed: () async {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Logout')));
-              await instance.signOut();
-              Get.offAll(const WelcomeScreen());
-            },
-          ),
-        ],
-      ),
-      body: FirestoreListView<PostModel>(
-        query: snaps,
-        itemBuilder: (context, snapshot) {
-          final post = snapshot.data();
-          if (post.creatorId == instance.currentUser.uid) {
-            return Container();
-          }
-          return PostWidget(
-            mail: post.emailId.toString(),
-            username: post.creatorName.toString(),
-            creatorImage: post.creatorImage.toString(),
-            postImage: post.imageUrl.toString(),
-            phoneNumber: post.phoneNumber.toString(),
-            latitude: post.latitude.toString(),
-            longitude: post.longitude.toString(),
-            description: post.description.toString(),
-            uid: post.creatorId.toString(),
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Bezubaan"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.person),
+              tooltip: 'Profile Page',
+              onPressed: () async {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Profile Page')));
+                Get.to(
+                  ProfileScreen(
+                    email: instance.currentUser.email.toString(),
+                    username: instance.currentUser.userName.toString(),
+                    creatorImage: instance.currentUser.imageLink.toString(),
+                    phoneNumber: instance.currentUser.phone.toString(),
+                    button: true,
+                    userID: instance.currentUser.uid.toString(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.add_a_photo),
+              tooltip: 'Add Photo',
+              onPressed: () async {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Add Photo')));
+                await Navigator.pushNamed(context, NewPostWidget.name);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.logout),
+              tooltip: 'Logout',
+              onPressed: () async {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Logout')));
+                await instance.signOut();
+                Get.offAll(const WelcomeScreen());
+              },
+            ),
+          ],
+        ),
+        body: FirestoreListView<PostModel>(
+          query: snaps,
+          itemBuilder: (context, snapshot) {
+            final post = snapshot.data();
+            if (post.creatorId == instance.currentUser.uid) {
+              return Container();
+            }
+            return PostWidget(
+              mail: post.emailId.toString(),
+              username: post.creatorName.toString(),
+              creatorImage: post.creatorImage.toString(),
+              postImage: post.imageUrl.toString(),
+              phoneNumber: post.phoneNumber.toString(),
+              latitude: post.latitude.toString(),
+              longitude: post.longitude.toString(),
+              description: post.description.toString(),
+              uid: post.creatorId.toString(),
+            );
+          },
+        ),
       ),
     );
   }
