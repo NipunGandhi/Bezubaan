@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:untitled/Screens/profileScreen.dart';
 import 'package:untitled/Screens/splashScreen.dart';
@@ -9,6 +10,7 @@ import 'package:untitled/providers/currentState.dart';
 import '../Widgets/postWidget.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../services/location_service.dart';
 
 class HomePageScreen extends StatefulWidget {
   HomePageScreen({Key? key}) : super(key: key);
@@ -21,11 +23,20 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   final CurrentState instance = Get.find();
   List snaps = [];
+  late Position data;
+  bool loading = true;
+
+  newMethod() async {
+    data = await determinePosition();
+    snaps = await getData(data.latitude, data.longitude);
+    loading = false;
+    setState(() {});
+  }
 
   @override
   initState() {
     super.initState();
-    snaps = getData();
+    newMethod();
   }
 
   @override
@@ -74,12 +85,32 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           ],
         ),
-        body: ListView.builder(
-          itemCount: snaps.length,
-          itemBuilder: (context, index) {
-            return Text(snaps[index]);
-          },
-        ),
+        body: loading == false
+            ? ListView.builder(
+                itemCount: snaps.length,
+                itemBuilder: (context, index) {
+                  if (snaps[index]["creatorId"].toString() ==
+                      instance.currentUser.uid.toString()) {
+                    return Container();
+                  } else {
+                    return PostWidget(
+                      mail: snaps[index]["emailId"],
+                      username: snaps[index]["creatorName"],
+                      creatorImage: snaps[index]["creatorImage"],
+                      postImage: snaps[index]["imageUrl"],
+                      phoneNumber: snaps[index]["phoneNumber"],
+                      latitude: snaps[index]["latitude"],
+                      longitude: snaps[index]["longitude"],
+                      description: snaps[index]["description"],
+                      uid: snaps[index]["creatorId"].toString(),
+                    );
+                  }
+                },
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
+                heightFactor: 50,
+              ),
       ),
     );
   }

@@ -11,7 +11,7 @@ calculateDistance(lat1, lon1, lat2, lon2) {
   return 12742 * asin(sqrt(a));
 }
 
-getData() async {
+getData(double userlatitude, double userlongitude) async {
   var snaps = await FirebaseFirestore.instance.collection("posts").get();
   List<Map> abc = [];
   for (var queryDocumentSnapshot in snaps.docs) {
@@ -20,14 +20,14 @@ getData() async {
     var creatorName = data["creatorName"];
     var emailId = data["emailId"];
     var creatorId = data["creatorId"];
-    var timeOfPost = data["timeOfPost"];
+    var timeOfPost = data["timeOfPost"].toDate();
     var creatorImage = data["creatorImage"];
     var imageUrl = data["imageUrl"];
     var phoneNumber = data["phoneNumber"];
     var longitude = data["longitude"];
     var latitude = data["latitude"];
-    var locationData = calculateDistance(
-        30.355338, 76.3692213, double.parse(latitude), double.parse(longitude));
+    var locationData = calculateDistance(userlatitude, userlongitude,
+        double.parse(latitude), double.parse(longitude));
 
     Map newData = {
       "description": description,
