@@ -128,6 +128,14 @@ class _PostWidgetState extends State<PostWidget> {
               children: [
                 GestureDetector(
                   child: const Text("Location"),
+                  // onTap: () async {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(
+                  //       content: Text(
+                  //           'Longitude - ${widget.longitude} && latitude - ${widget.latitude}'),
+                  //     ),
+                  //   );
+                  // },
                   onTap: () async {
                     String mapUrl =
                         "https://www.google.com/maps/search/?api=1&query=${widget.latitude},${widget.longitude}";
