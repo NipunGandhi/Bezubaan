@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/Screens/profileScreen.dart';
 import 'package:untitled/Screens/splashScreen.dart';
+import 'package:untitled/Widgets/locationDataCustom.dart';
 import 'package:untitled/Widgets/new_post_model.dart';
 import 'package:untitled/models/postModel.dart';
 import 'package:untitled/providers/currentState.dart';
@@ -19,22 +20,12 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   final CurrentState instance = Get.find();
-
-  var snaps;
+  List snaps = [];
 
   @override
   initState() {
-    // TODO: implement initState
-
     super.initState();
-    snaps = FirebaseFirestore.instance
-        .collection("posts")
-        .orderBy('timeOfPost', descending: true)
-        .withConverter<PostModel>(
-            fromFirestore: (snapshot, _) => PostModel.fromJson(
-                  snapshot.data()!,
-                ),
-            toFirestore: (user, _) => user.toJson());
+    snaps = getData();
   }
 
   @override
@@ -83,24 +74,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           ],
         ),
-        body: FirestoreListView<PostModel>(
-          query: snaps,
-          itemBuilder: (context, snapshot) {
-            final post = snapshot.data();
-            if (post.creatorId == instance.currentUser.uid) {
-              return Container();
-            }
-            return PostWidget(
-              mail: post.emailId.toString(),
-              username: post.creatorName.toString(),
-              creatorImage: post.creatorImage.toString(),
-              postImage: post.imageUrl.toString(),
-              phoneNumber: post.phoneNumber.toString(),
-              latitude: post.latitude.toString(),
-              longitude: post.longitude.toString(),
-              description: post.description.toString(),
-              uid: post.creatorId.toString(),
-            );
+        body: ListView.builder(
+          itemCount: snaps.length,
+          itemBuilder: (context, index) {
+            return Text(snaps[index]);
           },
         ),
       ),

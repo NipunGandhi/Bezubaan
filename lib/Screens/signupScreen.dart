@@ -135,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text(
-                              'Password length should be more than or equal to 8',
+                              'Password length should be more than 8',
                             )),
                           );
                         } else if (!email.text.contains("@") ||
