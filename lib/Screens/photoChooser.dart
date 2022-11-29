@@ -120,6 +120,9 @@ class _PhotoChooserState extends State<PhotoChooser> {
                     if (_image != null) {
                       await _instance.createNewUser(
                           model: _instance.currentUser, image: _image!);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Add Photo First')));
                     }
                     //Navigator.pushReplacementNamed(context, HomePageScreen.name);
                   },

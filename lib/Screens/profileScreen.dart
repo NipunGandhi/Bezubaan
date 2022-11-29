@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         children: [
                           SizedBox(
-                            width: 100,
+                            width: 90,
                             child: ElevatedButton(
                               onPressed: () async => await launch(
                                   "https://wa.me/+91${widget.phoneNumber}?text=Hello"),
@@ -112,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: 10,
                           ),
                           SizedBox(
-                            width: 100,
+                            width: 90,
                             child: ElevatedButton(
                               onPressed: () async => await launch(
                                   "mailto:${widget.email}?subject=Want to help&body=I saw your profile on bezubaan app want to contact"),

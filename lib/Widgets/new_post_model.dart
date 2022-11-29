@@ -194,7 +194,8 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                     await _instance.createAPost(post);
                     Navigator.pop(context);
                   } else {
-                    return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Fill Info')));
                   }
                 },
                 child: const Padding(

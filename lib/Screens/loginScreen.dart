@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/Screens/forgetPasswordScreen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:untitled/Screens/signupScreen.dart';
 import 'package:untitled/utils/screen_loader.dart';
 import '../Widgets/bottomBarWidget.dart';
@@ -87,10 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           const Text("Forget your login details?"),
                           TextButton(
-                            onPressed: () async {
-                              Navigator.pushNamed(
-                                  context, ForgetPasswordScreen.name);
-                            },
+                            onPressed: () async => await launch(
+                                "mailto:architrathi710@gmail.com?subject=Want to help&body=I found your post on Bezubaan App and I want to help you"),
                             child: const Text("Contact us"),
                           ),
                         ],
